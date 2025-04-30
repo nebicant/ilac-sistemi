@@ -1,0 +1,49 @@
+form {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  }
+  
+  label {
+    display: block;
+    margin: 10px 0 5px;
+    font-weight: bold;
+  }
+  
+  input[type="text"], 
+  select, 
+  textarea {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  
+  input[type="checkbox"], 
+  input[type="radio"] {
+    margin-right: 5px;
+  }
+  
+  button {
+    background: #4CAF50;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  button:hover {
+    background: #45a049;
+  }
+
+  .toast {
+    position: fixed; bottom: 20px; right: 20px;
+    background: #4CAF50; color: white; padding: 10px;
+    border-radius: 4px; display: none;
+  }

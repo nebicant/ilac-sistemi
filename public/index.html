@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>İlaç Sistemi Arıza Formu</title>
+</head>
+<body>
+  <h2>Arıza Bildirim Formu</h2>
+  <form id="issueForm" enctype="multipart/form-data">
+    
+    <label>Hastane:</label>
+    <select name="hospital" required>
+      <option value="">Seçiniz...</option>
+      <option value="Medipol Bahçelievler Hastanesi">Medipol Bahçelievler Hastanesi</option>
+      <option value="Medipol Mega Hastanesi">Medipol Mega Hastanesi</option>
+      <option value="Medipol Acıbadem Hastanesi">Medipol Acıbadem Hastanesi</option>
+      <option value="Bahçelievler Devlet Hastanesi">Bahçelievler Devlet Hastanesi</option>
+      <option value="NPİ Beyin Hastanesi">NPİ Beyin Hastanesi</option>
+      <option value="Okan Üniversitesi Hastanesi">Okan Üniversitesi Hastanesi</option>
+      <option value="Diğer">Diğer</option>
+    </select>
+    <input type="text" name="otherHospital" placeholder="Diğer hastane adı" style="display: none;"><br><br>
+
+    <label>Arızalı Parça:</label>
+    <select name="deviceType" required>
+      <option value="">Seçiniz...</option>
+      <option value="Buzdolabı Harici Kilit">Buzdolabı Harici Kilit</option>
+      <option value="Dolap kilidi">Dolap kilidi</option>
+      <option value="Çekmece kilidi">Çekmece kilidi</option>
+      <option value="Klavye">Klavye</option>
+      <option value="Parmak izi okuyucu">Parmak izi okuyucu</option>
+    </select><br><br>
+
+    <label>Sorun Türü:</label><br>
+    <label><input type="checkbox" name="issueType" value="Yazılım"> Yazılım Hatası</label><br>
+    <label><input type="checkbox" name="issueType" value="Donanım"> Donanım Arızası</label><br>
+    <label><input type="checkbox" name="issueType" value="Ağ"> Ağ Bağlantısı</label><br><br>
+
+    <label>Detaylı Açıklama:</label><br>
+    <textarea name="description" required></textarea><br><br>
+
+    <label>Aciliyet:</label><br>
+    <label><input type="radio" name="urgency" value="Low" required> Düşük</label>
+    <label><input type="radio" name="urgency" value="Medium"> Orta</label>
+    <label><input type="radio" name="urgency" value="High"> Yüksek</label><br><br>
+
+    <label>Ekran Görüntüsü:</label>
+    <input type="file" name="screenshot" accept="image/*"><br><br>
+
+    <button type="submit">Gönder</button>
+  </form>
+
+  <script>
+    // Diğer hastane seçildiyse input göster
+    document.querySelector('[name="hospital"]').addEventListener('change', function () {
+      const otherInput = document.querySelector('[name="otherHospital"]');
+      otherInput.style.display = this.value === "Diğer" ? "block" : "none";
+    });
+
+    // Form gönderimi
+    document.getElementById('issueForm').addEventListener('submit', async function (e) {
+      e.preventDefault();
+      const form = e.target;
+      const formData = new FormData(form);
+
+      try {
+        const response = await fetch('/api/issues', {
+          method: 'POST',
+          body: formData
+        });
+
+        const result = await response.text();
+        alert(result);
+        form.reset();
+      } catch (err) {
+        alert("Gönderim hatası: " + err.message);
+      }
+    });
+  </script>
+</body>
+</html>
