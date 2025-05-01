@@ -1,22 +1,20 @@
 const express = require('express');
-const cors = require('cors'); // ✅ CORS paketi eklendi
+const cors = require('cors');
 
 const app = express();
 const port = process.env.PORT || 3000;
 
-app.use(cors()); // ✅ Tüm domainlere izin verir (localhost:3000 dahil)
-app.use(express.json()); // ✅ JSON body okuyabilmek için
+app.use(cors());
+app.use(express.json());
 
-// RAM'de veri saklama alanı
 let veriler = [];
 
 app.post('/api/issues', (req, res) => {
   const yeniVeri = {
     ...req.body,
-    status: "Beklemede", // ⏳ ilk varsayılan durum
-    createdAt: new Date().toISOString() // 🕒 zaman damgası
+    status: "Beklemede",
+    createdAt: new Date().toISOString()
   };
-
   veriler.push(yeniVeri);
   console.log("📩 Yeni kayıt RAM'e alındı:", yeniVeri);
   res.status(201).json({ message: 'RAM\'e kayıt başarılı!' });
