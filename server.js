@@ -20,6 +20,18 @@ app.post('/api/issues', (req, res) => {
   res.status(201).json({ message: 'RAM\'e kayıt başarılı!' });
 });
 
+app.post('/api/update', (req, res) => {
+  const updated = req.body;
+  const index = veriler.findIndex(item => item.createdAt === updated.createdAt);
+  if (index !== -1) {
+    veriler[index] = updated;
+    console.log("✅ Durum güncellendi:", updated);
+    return res.status(200).json({ message: "Durum güncellendi!" });
+  }
+  res.status(404).json({ message: "Kayıt bulunamadı!" });
+});
+
+
 app.get('/api/issues', (req, res) => {
   res.json(veriler);
 });
